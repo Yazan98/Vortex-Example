@@ -1,2 +1,4 @@
 rootProject.name='Culttrip'
 include ':app'
+include ':domain'
+include ':data'
