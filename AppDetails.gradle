@@ -1,0 +1,18 @@
+ext {
+
+    // Plugins
+    AndroidPlugin = "com.android.application"
+    KotlinAndroidPlugin = "kotlin-android"
+    KotlinAndroidExPlugin = "kotlin-android-extensions"
+
+    //Android Details
+    compileSdkV = 29
+    BuildToolsVersion = "29.0.0"
+    applicationPackage = "com.culttrip.client"
+    minSdkV = 25
+    MultiDexMergeEnabled = true
+    ApplicationVersion = "1.0"
+    VersionCode = 1
+    AndroidTest = "androidx.test.runner.AndroidJUnitRunner"
+    ApplicationBuildType = "Testing"
+}
