@@ -1,4 +1,3 @@
-
 buildscript {
 
     ext.PluginsVersions = [
@@ -8,7 +7,7 @@ buildscript {
             "FirebasePluginV"    : "4.3.1",
             "KtlintPluginV"      : "2.1.1",
             "FabricPluginV"      : "1.28.1",
-            "NavigationPluginV"  : "1.0.0"
+            "NavigationPluginV"  : "2.2.0-rc04"
     ]
 
     repositories {
@@ -18,7 +17,8 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
         maven { url "https://plugins.gradle.org/m2/" }
         maven { url 'https://jitpack.io' }
-        maven { url  "https://dl.bintray.com/yt98/Vortex" }
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+        maven { url "https://dl.bintray.com/yt98/Vortex" }
     }
 
     dependencies {
@@ -28,14 +28,13 @@ buildscript {
         classpath "com.google.gms:google-services:${rootProject.ext.PluginsVersions.FirebasePluginV}"
         classpath "org.jmailen.gradle:kotlinter-gradle:${rootProject.ext.PluginsVersions.KtlintPluginV}"
         classpath "io.fabric.tools:gradle:${rootProject.ext.PluginsVersions.FabricPluginV}"
-        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:${rootProject.ext.PluginsVersions.NavigationPluginV}"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${rootProject.ext.PluginsVersions.NavigationPluginV}"
     }
 
 }
 
-apply from: "libraries.gradle"
-apply from: "plugins.gradle"
-apply from: "details.gradle"
+apply from: "Libraries.gradle"
+apply from: "AppDetails.gradle"
 
 allprojects {
 
@@ -44,7 +43,9 @@ allprojects {
         jcenter()
         maven { url 'https://maven.fabric.io/public' }
         maven { url "https://plugins.gradle.org/m2/" }
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
         maven { url 'https://jitpack.io' }
+        maven { url "https://dl.bintray.com/yt98/Vortex" }
     }
 
 }
@@ -54,7 +55,7 @@ subprojects {
 
         apply plugin: "${rootProject.ext.AndroidLibraryPlugin}"
         apply plugin: "${rootProject.ext.KotlinAndroidPlugin}"
-        apply plugin: "${rootProject.ext.KotlinAndroidExtentionsPlugin}"
+        apply plugin: "${rootProject.ext.KotlinAndroidExPlugin}"
         apply plugin: "${rootProject.ext.KotlinKaptPlugin}"
 
         android {
@@ -75,8 +76,8 @@ subprojects {
                 }
             }
 
-            compileSdkVersion rootProject.ext.CompileSdkV
-            buildToolsVersion "${rootProject.ext.buildToolV}"
+            compileSdkVersion rootProject.ext.compileSdkV
+            buildToolsVersion "${rootProject.ext.BuildToolsVersion}"
             defaultConfig {
                 minSdkVersion rootProject.ext.minSdkV
                 targetSdkVersion rootProject.ext.compileSdkV
@@ -94,7 +95,7 @@ subprojects {
                 debug {
                     minifyEnabled false
                     debuggable true
-                    manifestPlaceholders = [enableCrashReporting:"false"]
+                    manifestPlaceholders = [enableCrashReporting: "false"]
                     ext.enableCrashlytics = false
                     ext.alwaysUpdateBuildId = false
                     buildConfigField "String", "BASE_URL", "\"${DevBaseUrl}\""
@@ -106,7 +107,7 @@ subprojects {
                     minifyEnabled true
                     debuggable false
                     ext.enableCrashlytics = true
-                    manifestPlaceholders = [enableCrashReporting:"true"]
+                    manifestPlaceholders = [enableCrashReporting: "true"]
                     buildConfigField "String", "BASE_URL", "\"${DevBaseUrl}\""
                     proguardFiles getDefaultProguardFile("${rootProject.ext.ProguardFile}"), "${rootProject.ext.Proguard}"
                     signingConfig signingConfigs.release
@@ -117,7 +118,7 @@ subprojects {
         }
 
         dependencies { config ->
-
+            defaultTestingConfiguration(config)
             def RxConfiguration = rootProject.ext.RxConfiguration
             def KotlinCoroutinesConfiguration = rootProject.ext.KotlinCoroutinesConfiguration
 
@@ -128,6 +129,10 @@ subprojects {
             implementation KotlinCoroutinesConfiguration.AndroidCoroutines
 
             daggerConfig(config)
+
+            if (project.name.equals("domain")) {
+                lifeCycleConfiguration(config)
+            }
 
         }
 
@@ -150,4 +155,20 @@ void daggerConfig(configuration) {
     configuration.implementation DependenciesInjection.DaggerAndroid
     configuration.implementation DependenciesInjection.DaggerAndroidSupport
     configuration.kapt DependenciesInjection.DaggerAndroidProcessor
+}
+
+void defaultTestingConfiguration(configuration) {
+    def TestingConfiguration = rootProject.ext.TestingConfiguration
+    configuration.testImplementation TestingConfiguration.Junit
+    configuration.androidTestImplementation TestingConfiguration.Esspresso
+    configuration.androidTestImplementation TestingConfiguration.Runner
+}
+
+void lifeCycleConfiguration(configuration) {
+    def LifeCycleConfiguration = rootProject.ext.LifeCycleConfiguration
+    configuration.implementation LifeCycleConfiguration.LifecycleViewModel
+    configuration.implementation LifeCycleConfiguration.LifecycleExtensions
+    configuration.implementation LifeCycleConfiguration.LifecycleRuntime
+    configuration.implementation LifeCycleConfiguration.LifecycleLiveData
+    configuration.implementation LifeCycleConfiguration.LifecycleCommon
 }

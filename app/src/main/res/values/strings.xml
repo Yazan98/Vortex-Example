@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Culttrip</string>
+    <string name="un_expected_error">Un Expected Error</string>
+    <string name="offers_notification_channel">Offers</string>
+    <string name="offers_notification_channel_des">Show Offers For Each User</string>
+    <string name="offers_notification_channel_id">NotificationID</string>
 </resources>

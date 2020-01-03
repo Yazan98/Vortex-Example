@@ -1,5 +1,3 @@
-import java.text.SimpleDateFormat
-
 apply plugin: "${rootProject.ext.AndroidPlugin}"
 apply plugin: "${rootProject.ext.KotlinAndroidPlugin}"
 apply plugin: "${rootProject.ext.KotlinAndroidExPlugin}"
@@ -32,9 +30,9 @@ android {
         }
 
         manifestPlaceholders = [
-                enableCrashReporting:"false",
+                enableCrashReporting: "false",
                 CrashReportingApiKey: "ApiKeyHere",
-                GoogleMapsApiKey: "GoogleMapsApiKey"
+                GoogleMapsApiKey    : "GoogleMapsApiKey"
         ]
     }
 
@@ -128,13 +126,92 @@ android {
 
 }
 
-dependencies {
+dependencies { configuration ->
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    defaultTestingConfiguration(configuration)
+    koinConfiguration(configuration)
+    googlePlayServicesConfiguration(configuration)
+    rxJavaConfiguration(configuration)
+    kotlinCoroutines(configuration)
+    userInterfaceConfiguration(configuration)
+    retrofitConfiguration(configuration)
+    applicationConfiguration(configuration)
+    vortexConfiguration(configuration)
+    daggerConfig(configuration)
+
+    implementation project(":data")
+    implementation project(":domain")
+}
+
+private void koinConfiguration(configuration) {
+    def KoinConfiguration = rootProject.ext.KoinConfiguration
+    configuration.implementation KoinConfiguration.KoinAndroid
+    configuration.implementation KoinConfiguration.KoinLifecycle
+    configuration.implementation KoinConfiguration.KoinViewModel
+}
+
+private void googlePlayServicesConfiguration(configuration) {
+    def GooglePlayServices = rootProject.ext.GooglePlayServices
+    configuration.implementation GooglePlayServices.GoogleMaps
+    configuration.implementation GooglePlayServices.GooglePlaces
+    configuration.implementation GooglePlayServices.GoogleGcm
+    configuration.implementation GooglePlayServices.GoogleLocations
+}
+
+private void rxJavaConfiguration(configuration) {
+    def RxConfiguration = rootProject.ext.RxConfiguration
+    configuration.implementation RxConfiguration.RxJava
+    configuration.implementation RxConfiguration.RxAndroid
+}
+
+private void kotlinCoroutines(configuration) {
+    def KotlinCoroutinesConfiguration = rootProject.ext.KotlinCoroutinesConfiguration
+    configuration.implementation KotlinCoroutinesConfiguration.Coroutines
+    configuration.implementation KotlinCoroutinesConfiguration.AndroidCoroutines
+}
+
+private void userInterfaceConfiguration(configuration) {
+    def UiConfiguration = rootProject.ext.UiConfiguration
+    configuration.implementation UiConfiguration.RecyclerView
+    configuration.implementation UiConfiguration.SupportCompat
+    configuration.implementation UiConfiguration.SupportCore
+    configuration.implementation UiConfiguration.SupportCoreUi
+    configuration.implementation UiConfiguration.SupportFragment
+    configuration.implementation UiConfiguration.AndroidCore
+    configuration.implementation UiConfiguration.CardView
+    configuration.implementation UiConfiguration.AppCompat
+    configuration.implementation UiConfiguration.GoogleMaterial
+    configuration.implementation UiConfiguration.Fresco
+    configuration.implementation UiConfiguration.Sdp
+    configuration.implementation UiConfiguration.Constraintlayout
+    configuration.implementation UiConfiguration.NavigationFragment
+    configuration.implementation UiConfiguration.NavigationUI
+}
+
+private void retrofitConfiguration(configuration) {
+    def DataConfiguration = rootProject.ext.DataConfiguration
+    configuration.implementation DataConfiguration.Retrofit
+    configuration.implementation DataConfiguration.RetrofitRxJavaAdapter
+    configuration.implementation DataConfiguration.RetrofitIntercenptor
+    configuration.implementation DataConfiguration.retrofitGsonConverter
+}
+
+private void applicationConfiguration(configuration) {
+    def ApplicationConfiguration = rootProject.ext.ApplicationConfiguration
+    configuration.implementation ApplicationConfiguration.Timber
+    configuration.implementation ApplicationConfiguration.MultiDexApp
+    configuration.implementation ApplicationConfiguration.LeakCanaryAndroid
+    configuration.implementation ApplicationConfiguration.LeakCanary
+    configuration.implementation ApplicationConfiguration.KotlinJdk
+}
+
+private void vortexConfiguration(configuration) {
+    def VortexConfiguration = rootProject.ext.VortexConfiguration
+    configuration.implementation VortexConfiguration.VortexUserInterface
+    configuration.implementation VortexConfiguration.VortexPermissions
+    configuration.implementation VortexConfiguration.VortexCore
+    configuration.implementation VortexConfiguration.VortexLocal
+    configuration.implementation VortexConfiguration.VortexData
+    configuration.implementation VortexConfiguration.VortexExtras
+    configuration.implementation VortexConfiguration.VortexPrefs
 }
