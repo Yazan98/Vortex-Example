@@ -4,4 +4,5 @@
     <string name="offers_notification_channel">Offers</string>
     <string name="offers_notification_channel_des">Show Offers For Each User</string>
     <string name="offers_notification_channel_id">NotificationID</string>
+    <string name="welcome_des">A simple, secure and stable service for culture activities to connect you with all features about culture</string>
 </resources>
