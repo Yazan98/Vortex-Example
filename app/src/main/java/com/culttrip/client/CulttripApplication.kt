@@ -35,18 +35,15 @@ class CulttripApplication : VortexApplication(), Thread.UncaughtExceptionHandler
                 .registerExceptionHandler(this@CulttripApplication)
                 .registerApplicationState(true)
                 .registerVortexPermissionsSettings()
-                .registerLeakCanaryConfiguration()
                 .registerImageLoader(ImageLoader.FRESCO)
                 .registerCompatVector()
-                .registerStrictMode()
-        }
-
-        VortexConfiguration.registerVortexPrefsConfiguration(
-            VortexPrefsDetails(
-                packageName = this@CulttripApplication.packageName,
-                mode = Context.MODE_PRIVATE
+                .registerVortexPrefsConfiguration(
+                VortexPrefsDetails(
+                    packageName = this@CulttripApplication.packageName,
+                    mode = Context.MODE_PRIVATE
+                )
             )
-        )
+        }
 
         startKoin {
             androidContext(this@CulttripApplication)

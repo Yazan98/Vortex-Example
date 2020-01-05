@@ -1,5 +1,6 @@
 package com.culttrip.client
 
+import android.content.Context
 import android.os.Bundle
 import com.culttrip.client.screens.MainScreen
 import com.culttrip.client.screens.RegisterScreen
@@ -18,10 +19,12 @@ class MainActivity : VortexScreen() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         GlobalScope.launch {
-            VortexPrefs.get(ApplicationKeys.USER_STATUS_KEY , false)?.let {
-                when (it as Boolean) {
-                    true -> startScreen<MainScreen>(true)
-                    false -> startScreen<RegisterScreen>(true)
+            getSharedPreferences(ApplicationKeys.SHARED_PREFS_NAME , Context.MODE_PRIVATE)?.let { it ->
+                it.getBoolean(ApplicationKeys.USER_STATUS_KEY , false).let {
+                    when (it) {
+                        true -> startScreen<MainScreen>(true)
+                        false -> startScreen<RegisterScreen>(true)
+                    }
                 }
             }
         }

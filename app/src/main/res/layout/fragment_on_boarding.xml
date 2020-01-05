@@ -22,6 +22,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -36,7 +37,38 @@
     <com.facebook.drawee.view.SimpleDraweeView
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_100sdp"
-        tools:layout_editor_absoluteX="140dp"
-        tools:layout_editor_absoluteY="198dp" />
+        android:layout_marginTop="96dp"
+        android:id="@+id/BoardingLogo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_40sdp"
+        android:id="@+id/ContinueButton"
+        android:layout_marginEnd="@dimen/_40sdp"
+        android:text="@string/continue_btn"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:background="@drawable/bg_primary_button"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:text="@string/powered_by_welcome"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

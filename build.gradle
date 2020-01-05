@@ -60,21 +60,21 @@ subprojects {
 
         android {
 
-            signingConfigs {
-                release {
-                    storeFile file('Key Path')
-                    storePassword 'Key Password'
-                    keyAlias = 'Key Name'
-                    keyPassword 'Key Password'
-                }
-
-                debug {
-                    storeFile file('Key Path')
-                    storePassword 'Key Password'
-                    keyAlias = 'Key Name'
-                    keyPassword 'Key Password'
-                }
-            }
+//            signingConfigs {
+//                release {
+//                    storeFile file('Key Path')
+//                    storePassword 'Key Password'
+//                    keyAlias = 'Key Name'
+//                    keyPassword 'Key Password'
+//                }
+//
+//                debug {
+//                    storeFile file('Key Path')
+//                    storePassword 'Key Password'
+//                    keyAlias = 'Key Name'
+//                    keyPassword 'Key Password'
+//                }
+//            }
 
             compileSdkVersion rootProject.ext.compileSdkV
             buildToolsVersion "${rootProject.ext.BuildToolsVersion}"
@@ -99,7 +99,7 @@ subprojects {
                     ext.enableCrashlytics = false
                     ext.alwaysUpdateBuildId = false
                     buildConfigField "String", "BASE_URL", "\"${DevBaseUrl}\""
-                    signingConfig signingConfigs.debug
+//                    signingConfig signingConfigs.debug
                     proguardFiles getDefaultProguardFile("${rootProject.ext.ProguardFile}"), "${rootProject.ext.Proguard}"
                 }
 
@@ -110,7 +110,7 @@ subprojects {
                     manifestPlaceholders = [enableCrashReporting: "true"]
                     buildConfigField "String", "BASE_URL", "\"${DevBaseUrl}\""
                     proguardFiles getDefaultProguardFile("${rootProject.ext.ProguardFile}"), "${rootProject.ext.Proguard}"
-                    signingConfig signingConfigs.release
+//                    signingConfig signingConfigs.release
                 }
 
             }
