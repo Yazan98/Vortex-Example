@@ -1,13 +1,14 @@
-package com.culttrip.data.models.response
+package com.culttrip.data.models.body
+
+import com.culttrip.data.models.response.ProfileLocation
 
 /**
  * Created By : Yazan Tarifi
  * Date : 1/5/2020
- * Time : 2:08 PM
+ * Time : 6:21 PM
  */
-
-data class UserResponse(
-    var id: Long = 0,
+  
+data class RegisterBody(
     var username: String = "",
     var email: String = "",
     var phoneNumber: String = "",
@@ -15,11 +16,6 @@ data class UserResponse(
     var enabled: Boolean = false,
     var accountStatus: String = "",
     var pinCode: String = "",
-    var location: ProfileLocation
-)
-
-data class ProfileLocation(
-    var latitude: Double = 0.0,
-    var longitude: Double = 0.0,
-    var name: String = ""
+    var location: ProfileLocation,
+    var password: String = ""
 )

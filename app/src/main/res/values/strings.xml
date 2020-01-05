@@ -18,4 +18,11 @@
     <string name="pass_required">Password Required</string>
     <string name="login_success">Welcome Back, To Culttrip Client</string>
     <string name="account_disabled">Sorry You\'r Account Disabled</string>
+    <string name="reg_des">Welcome To Culttrip Client Fill Information To Create New Account</string>
+    <string name="username">Username</string>
+    <string name="phone">Phone Number</string>
+    <string name="pin_code">Account Pin Code</string>
+    <string name="register">Register</string>
+    <string name="register_welcome">Welcome To Culttrip Client</string>
+    <string name="location_name">Location Name</string>
 </resources>

@@ -4,6 +4,7 @@ import com.culttrip.data.CulttripRepository
 import com.culttrip.data.api.AuthApi
 import com.culttrip.data.models.VortexResponse
 import com.culttrip.data.models.body.LoginBody
+import com.culttrip.data.models.body.RegisterBody
 import com.culttrip.data.models.response.AuthResponse
 import io.reactivex.Observable
 import io.vortex.android.models.VortexServiceProviderType
@@ -29,6 +30,10 @@ open class AuthRepository @Inject constructor() : CulttripRepository<AuthApi>() 
 
     suspend fun login(loginBody: LoginBody): Observable<VortexResponse<AuthResponse>> {
         return provider.getObservable(getService().login(loginBody))
+    }
+
+    suspend fun register(body: RegisterBody):Observable<VortexResponse<AuthResponse>> {
+        return provider.getObservable(getService().register(body))
     }
 
 }

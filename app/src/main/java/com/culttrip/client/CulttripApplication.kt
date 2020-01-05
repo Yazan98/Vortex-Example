@@ -1,7 +1,7 @@
 package com.culttrip.client
 
 import android.content.Context
-import com.culttrip.domain.viewmodels.reg.LoginViewModel
+import com.culttrip.domain.viewmodels.reg.RegisterViewModel
 import io.vortex.android.keys.ImageLoader
 import io.vortex.android.models.VortexPrefsDetails
 import io.vortex.android.models.ui.VortexNotificationDetails
@@ -73,7 +73,7 @@ class CulttripApplication : VortexApplication(), Thread.UncaughtExceptionHandler
     }
 
     private val applicationModules = module {
-        viewModel { LoginViewModel() }
+        viewModel { RegisterViewModel() }
     }
 
     override fun uncaughtException(p0: Thread, p1: Throwable) {
