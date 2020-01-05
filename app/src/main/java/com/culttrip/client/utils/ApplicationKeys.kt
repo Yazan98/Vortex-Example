@@ -9,4 +9,6 @@ package com.culttrip.client.utils
 object ApplicationKeys {
     const val USER_STATUS_KEY = "UserStatusApp"
     const val SHARED_PREFS_NAME = "Culttrip"
+    const val ACCESS_TOKEN = "TOken"
+    const val ACCOUNT_ID = "AccountId"
 }

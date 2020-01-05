@@ -15,8 +15,8 @@
 
            <androidx.appcompat.widget.Toolbar
                android:layout_width="match_parent"
-               android:background="@color/colorPrimaryDark"
-               android:layout_height="wrap_content">
+               android:layout_height="wrap_content"
+               android:background="@color/colorPrimaryDark">
 
                <TextView
                    android:layout_width="wrap_content"
@@ -64,6 +64,7 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:orientation="vertical"
+           android:id="@+id/LoginDetailsContainer"
            android:layout_marginTop="@dimen/_20sdp"
            android:layout_marginStart="@dimen/_20sdp"
            android:layout_marginEnd="@dimen/_20sdp"
@@ -143,6 +144,16 @@
            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
            app:layout_constraintEnd_toEndOf="parent"
            app:layout_constraintStart_toStartOf="parent" />
+
+       <ProgressBar
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/LoginProgress"
+           android:visibility="gone"
+           app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="@+id/Des" />
 
    </androidx.constraintlayout.widget.ConstraintLayout>
 

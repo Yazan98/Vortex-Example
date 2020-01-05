@@ -16,4 +16,6 @@
     <string name="login">Login</string>
     <string name="email_required">Email Required</string>
     <string name="pass_required">Password Required</string>
+    <string name="login_success">Welcome Back, To Culttrip Client</string>
+    <string name="account_disabled">Sorry You\'r Account Disabled</string>
 </resources>

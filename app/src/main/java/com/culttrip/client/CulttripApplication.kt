@@ -1,6 +1,7 @@
 package com.culttrip.client
 
 import android.content.Context
+import com.culttrip.domain.viewmodels.reg.LoginViewModel
 import io.vortex.android.keys.ImageLoader
 import io.vortex.android.models.VortexPrefsDetails
 import io.vortex.android.models.ui.VortexNotificationDetails
@@ -12,6 +13,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.koin.androidContext
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
@@ -71,7 +73,7 @@ class CulttripApplication : VortexApplication(), Thread.UncaughtExceptionHandler
     }
 
     private val applicationModules = module {
-        // fill them later
+        viewModel { LoginViewModel() }
     }
 
     override fun uncaughtException(p0: Thread, p1: Throwable) {
