@@ -1,6 +1,7 @@
-package com.culttrip.client.fragments
+package com.culttrip.client.fragments.reg
 
 import android.view.View
+import androidx.navigation.findNavController
 import com.culttrip.client.R
 import io.vortex.android.ui.fragment.VortexBaseFragment
 import kotlinx.android.synthetic.main.fragment_on_boarding.*
@@ -26,7 +27,7 @@ class OnBoardingFragment @Inject constructor() : VortexBaseFragment() {
 
         ContinueButton?.apply {
             this.setOnClickListener {
-
+                findNavController().navigate(R.id.action_onBoardingFragment_to_loginFragment)
             }
         }
 

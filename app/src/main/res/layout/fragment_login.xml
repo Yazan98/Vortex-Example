@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+   <androidx.constraintlayout.widget.ConstraintLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+       <com.google.android.material.appbar.AppBarLayout
+           android:id="@+id/appBarLayout"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+           <androidx.appcompat.widget.Toolbar
+               android:layout_width="match_parent"
+               android:background="@color/colorPrimaryDark"
+               android:layout_height="wrap_content">
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center"
+                   android:text="@string/app_name"
+                   android:textColor="@color/white" />
+
+           </androidx.appcompat.widget.Toolbar>
+
+       </com.google.android.material.appbar.AppBarLayout>
+
+       <com.facebook.drawee.view.SimpleDraweeView
+           android:id="@+id/LogoLogin"
+           android:layout_width="@dimen/_70sdp"
+           android:layout_height="@dimen/_70sdp"
+           android:layout_marginStart="@dimen/_20sdp"
+           android:layout_marginTop="@dimen/_40sdp"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+       <TextView
+           android:id="@+id/textView3"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginStart="@dimen/_20sdp"
+           android:layout_marginTop="@dimen/_20sdp"
+           android:text="@string/welcome_login"
+           android:textSize="@dimen/_20sdp"
+           android:textStyle="bold"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/LogoLogin" />
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/Des"
+           android:layout_marginStart="@dimen/_20sdp"
+           android:layout_marginTop="@dimen/_10sdp"
+           android:text="@string/sign_in_to_countinue"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           android:layout_marginTop="@dimen/_20sdp"
+           android:layout_marginStart="@dimen/_20sdp"
+           android:layout_marginEnd="@dimen/_20sdp"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@id/Des">
+
+           <com.google.android.material.textfield.TextInputLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="@dimen/_20sdp">
+
+               <com.google.android.material.textfield.TextInputEditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:hint="@string/email"
+                   android:id="@+id/EmailField"
+                   android:imeOptions="actionNext"
+                   android:inputType="textEmailAddress" />
+
+           </com.google.android.material.textfield.TextInputLayout>
+
+           <com.google.android.material.textfield.TextInputLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="@dimen/_20sdp"
+               app:passwordToggleEnabled="true">
+
+               <com.google.android.material.textfield.TextInputEditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:hint="@string/pass"
+                   android:id="@+id/PasswordField"
+                   android:imeOptions="actionDone"
+                   android:inputType="textPassword" />
+
+           </com.google.android.material.textfield.TextInputLayout>
+
+       </LinearLayout>
+
+       <LinearLayout
+           android:id="@+id/linearLayout"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginBottom="@dimen/_20sdp"
+           android:orientation="horizontal"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginEnd="@dimen/_10sdp"
+               android:text="@string/new_user" />
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="@string/signup"
+               android:id="@+id/SignUpButton"
+               android:textColor="@color/colorPrimary" />
+
+       </LinearLayout>
+
+       <Button
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/LoginButton"
+           android:layout_marginBottom="@dimen/_20sdp"
+           android:background="@drawable/bg_primary_button"
+           android:text="@string/login"
+           android:layout_marginStart="@dimen/_40sdp"
+           android:layout_marginEnd="@dimen/_40sdp"
+           android:textAllCaps="false"
+           android:textColor="@color/white"
+           app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent" />
+
+   </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

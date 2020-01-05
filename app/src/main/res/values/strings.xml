@@ -7,4 +7,13 @@
     <string name="welcome_des">A simple, secure and stable service for culture activities to connect you with all features about culture</string>
     <string name="continue_btn">Continue</string>
     <string name="powered_by_welcome">This Application Powered By [Vortex-io]</string>
+    <string name="welcome_login">Welcome Back,</string>
+    <string name="sign_in_to_countinue">Sign in to countinue</string>
+    <string name="email">Email</string>
+    <string name="pass">Password</string>
+    <string name="new_user">New User ?</string>
+    <string name="signup">Signup</string>
+    <string name="login">Login</string>
+    <string name="email_required">Email Required</string>
+    <string name="pass_required">Password Required</string>
 </resources>

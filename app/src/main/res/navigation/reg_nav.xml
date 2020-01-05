@@ -8,6 +8,15 @@
     <fragment
         android:id="@+id/onBoardingFragment"
         tools:layout="@layout/fragment_on_boarding"
-        android:name="com.culttrip.client.fragments.OnBoardingFragment"
-        android:label="OnBoardingFragment" />
+        android:name="com.culttrip.client.fragments.reg.OnBoardingFragment"
+        android:label="OnBoardingFragment" >
+        <action
+            android:id="@+id/action_onBoardingFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        tools:layout="@layout/fragment_login"
+        android:name="com.culttrip.client.fragments.reg.LoginFragment"
+        android:label="LoginFragment" />
 </navigation>
