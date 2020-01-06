@@ -41,14 +41,12 @@ class LoginFragment @Inject constructor() : VortexFragment<AuthState, AuthAction
         return loginViewModel
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun initScreen(view: View) {
+
         GlobalScope.launch {
             subscribeStateHandler()
         }
-    }
 
-    override fun initScreen(view: View) {
         LogoLogin?.apply {
             this.setImageURI("res:/" + R.drawable.logo_2)
         }
@@ -77,10 +75,18 @@ class LoginFragment @Inject constructor() : VortexFragment<AuthState, AuthAction
 
     private suspend fun subscribeStateHandler() {
         withContext(Dispatchers.Main) {
-            loginViewModel.getVortexStore()?.let {
-                it.getStateObserver().observe(this@LoginFragment, Observer {
+            loginViewModel.getStateHandler()?.let {
+                it.observe(this@LoginFragment, Observer {
                     GlobalScope.launch {
                         onStateChanged(it)
+                    }
+                })
+            }
+
+            loginViewModel.getLoadingStateHandler()?.let {
+                it.observe(this@LoginFragment, Observer {
+                    GlobalScope.launch {
+                        startLoading(it.getLoadingState())
                     }
                 })
             }
@@ -92,7 +98,6 @@ class LoginFragment @Inject constructor() : VortexFragment<AuthState, AuthAction
             when (newState) {
                 is AuthState.LoginError -> showMessage(newState.getErrorMessage())
                 is AuthState.LoginSuccessState -> showAccountInfo(newState.getResponse())
-                is AuthState.LoadingState -> startLoading(newState.getLoading())
             }
         }
     }
@@ -119,11 +124,12 @@ class LoginFragment @Inject constructor() : VortexFragment<AuthState, AuthAction
         withContext(Dispatchers.Main) {
             showMessage(getString(R.string.login_success))
             activity?.let {
-                it.getSharedPreferences(ApplicationKeys.SHARED_PREFS_NAME, Context.MODE_PRIVATE)?.let {
+                it.getSharedPreferences(ApplicationKeys.SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+                    ?.let {
                         it.edit()
                             .putBoolean(ApplicationKeys.USER_STATUS_KEY, true)
                             .putString(ApplicationKeys.ACCESS_TOKEN, authResponse.token)
-                            .putString(ApplicationKeys.PIN_CODE_KET , authResponse.user.pinCode)
+                            .putString(ApplicationKeys.PIN_CODE_KET, authResponse.user.pinCode)
                             .putLong(ApplicationKeys.ACCOUNT_ID, authResponse.user.id).apply()
                     }
             }
@@ -145,7 +151,6 @@ class LoginFragment @Inject constructor() : VortexFragment<AuthState, AuthAction
     override fun onDestroy() {
         super.onDestroy()
         GlobalScope.launch {
-            getController().getVortexStore()?.destroyStore()
             getController().destroyReducer()
         }
     }

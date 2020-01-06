@@ -1,9 +1,14 @@
 package com.culttrip.domain.viewmodels.reg
 
 import com.culttrip.data.models.body.RegisterBody
+import com.culttrip.data.models.response.AuthResponse
+import com.culttrip.data.models.response.ProfileLocation
+import com.culttrip.data.models.response.UserResponse
 import com.culttrip.data.repository.AuthRepository
 import com.culttrip.domain.state.AuthAction
 import com.culttrip.domain.state.AuthState
+import io.vortex.android.errors.VortexException
+import io.vortex.android.models.VortexExceptionDetails
 import io.vortex.android.reducer.VortexViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -40,19 +45,15 @@ open class RegisterViewModel @Inject constructor() : VortexViewModel<AuthState, 
                 login.getLoginDetails().email.isEmpty() -> handleError("Invalid Email")
                 login.getLoginDetails().password.isEmpty() -> handleError("Invalid Password")
                 else -> {
-                    acceptNewState(AuthState.LoadingState(true))
+                    acceptLoadingState(true)
                     addRxRequest(loginRepository.login(login.getLoginDetails()).subscribe({
                         GlobalScope.launch {
-                            println("Request : OnSuccess")
-                            acceptNewState(AuthState.LoadingState(false))
-                            acceptNewState(AuthState.LoginSuccessState(it.data))
+                            handleSuccessState(AuthState.LoginSuccessState(it.data))
                         }
                     }, {
-                        it.message?.let {
-                            GlobalScope.launch {
-                                println("Request : OnError")
-                                acceptNewState(AuthState.LoadingState(false))
-                                handleError(it)
+                        GlobalScope.launch {
+                            it.message?.let {
+                                handleErrorState(ConnectionException(it))
                             }
                         }
                     }))
@@ -60,6 +61,17 @@ open class RegisterViewModel @Inject constructor() : VortexViewModel<AuthState, 
             }
         }
     }
+
+    class ConnectionException(override val message: String?) : VortexException(object : VortexExceptionDetails<Any> {
+        override fun getExceptionBody(): Any {
+            return AuthResponse(user = UserResponse(location = ProfileLocation()))
+        }
+
+        override fun getExceptionMessage(): String {
+            return message.toString()
+        }
+
+    })
 
     private suspend fun registerAccount(body: RegisterBody) {
         withContext(Dispatchers.IO) {
@@ -78,7 +90,6 @@ open class RegisterViewModel @Inject constructor() : VortexViewModel<AuthState, 
                     }, {
                         it.message?.let {
                             GlobalScope.launch {
-                                acceptNewState(AuthState.LoadingState(false))
                                 handleError(it)
                             }
                         }

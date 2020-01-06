@@ -1,10 +1,12 @@
 package com.culttrip.client
 
 import android.content.Context
+import com.culttrip.client.utils.ApplicationKeys
 import com.culttrip.domain.viewmodels.reg.RegisterViewModel
 import io.vortex.android.keys.ImageLoader
 import io.vortex.android.models.VortexPrefsDetails
 import io.vortex.android.models.ui.VortexNotificationDetails
+import io.vortex.android.prefs.VortexPrefsConfig
 import io.vortex.android.ui.VortexMessageDelegation
 import io.vortex.android.utils.VortexApplication
 import io.vortex.android.utils.VortexConfiguration
@@ -32,6 +34,7 @@ class CulttripApplication : VortexApplication(), Thread.UncaughtExceptionHandler
     override fun onCreate() {
         super.onCreate()
         GlobalScope.launch {
+            VortexPrefsConfig.prefs = getSharedPreferences(ApplicationKeys.SHARED_PREFS_NAME , Context.MODE_PRIVATE)
             VortexConfiguration
                 .registerApplicationClass(this@CulttripApplication)
                 .registerExceptionHandler(this@CulttripApplication)
@@ -39,12 +42,12 @@ class CulttripApplication : VortexApplication(), Thread.UncaughtExceptionHandler
                 .registerVortexPermissionsSettings()
                 .registerImageLoader(ImageLoader.FRESCO)
                 .registerCompatVector()
+                .registerStrictMode()
                 .registerVortexPrefsConfiguration(
                 VortexPrefsDetails(
                     packageName = this@CulttripApplication.packageName,
                     mode = Context.MODE_PRIVATE
-                )
-            )
+                ), this@CulttripApplication)
         }
 
         startKoin {

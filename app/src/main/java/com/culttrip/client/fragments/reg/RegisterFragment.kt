@@ -28,8 +28,7 @@ import javax.inject.Inject
  * Time : 5:27 PM
  */
 
-class RegisterFragment @Inject constructor() :
-    VortexFragment<AuthState, AuthAction, RegisterViewModel>() {
+class RegisterFragment @Inject constructor() : VortexFragment<AuthState, AuthAction, RegisterViewModel>() {
     private val registerViewModel: RegisterViewModel by viewModel(RegisterViewModel::class)
 
     override suspend fun getController(): RegisterViewModel {
@@ -85,12 +84,21 @@ class RegisterFragment @Inject constructor() :
 
     private suspend fun subscribeStateHandler() {
         withContext(Dispatchers.Main) {
-            getController().getVortexStore()?.getStateObserver()
-                ?.observe(this@RegisterFragment, Observer {
+            registerViewModel.getStateHandler()?.let {
+                it.observe(this@RegisterFragment, Observer {
                     GlobalScope.launch {
                         onStateChanged(it)
                     }
                 })
+            }
+
+            registerViewModel.getLoadingStateHandler()?.let {
+                it.observe(this@RegisterFragment, Observer {
+                    GlobalScope.launch {
+                        loadingState(it.getLoadingState())
+                    }
+                })
+            }
         }
     }
 

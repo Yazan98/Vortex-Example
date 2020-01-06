@@ -26,10 +26,6 @@ abstract class CulttripRepository<Api> : VortexRepository<Api>() {
         return "http://192.168.1.2:8181/v1/"
     }
 
-    override fun <T : Any> getRequestProvider(): VortexRequestProvider<T> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun getRequestDetails(): VortexRequestDetailsProvider {
        return VortexRequestDetailsProvider()
     }
